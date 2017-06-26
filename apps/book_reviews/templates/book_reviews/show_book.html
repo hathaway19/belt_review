@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <title> Belt Review Assignment </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'book_reviews/css/style.css' %}">
+    </head>
+    <body>
+        <h1> {{ book.title }} </h1>
+        <h3> Author: {{ book.author_id.name }} </h3>
+        <h4> Reviews: </h4>
+        {% for review in books_reviews %}
+            <div class="review">
+                <p> Rating: {{ review.rating }} </p>
+                <a href="{% url 'book_reviews:show_user' id=review.user_id.id %}"> {{ review.user_id.alias }} </a> says: 
+                <p> {{ review.content }} </p>
+                {% if review.user_id.id == request.session.login_id %}
+                    <a href="{% url 'book_reviews:delete' id=review.id %}"> Delete </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <h4> Add a Review: </h4>
+        <form action="{% url 'book_reviews:add_review' %}" method="POST"> 
+            {% csrf_token %}
+            <input type="submit" value="Submit Review">
+        </form>
+    </body>
+</html>

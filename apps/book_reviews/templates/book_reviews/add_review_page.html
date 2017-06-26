@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <title> Belt Review Assignment </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'book_reviews/css/add.css' %}">
+    </head>
+    <body>
+        <h2> Add a new book Title and a Review </h2>
+        <a class="link" href="{% url 'login_app:logout' %}"> Logout </a>
+        <p> </p>
+        <a class="link" href="{% url 'book_reviews:index' %}"> Home </a>
+        {% if messages %}
+            {% for message in messages %}
+                <p> {{ message }} </p>
+            {% endfor %}
+        {% endif %}
+        <h2> Add a new Book Title and a new Review: </h2>
+        <form action="{% url 'book_reviews:create_review' %}" method="POST"> 
+            {% csrf_token %}
+            <h3> Book Title: </h3>
+            <input type="text" name="title">
+            <h3> Author: </h3>
+            <label> Choose from the list: </label>
+            <select class="author_select" name="author_list">
+                <option value="none"> None </option>
+                {% for author in all_authors %}
+                <option value="{{ author.name }}"> {{ author.name }} </option>
+                {% endfor %}
+            </select>
+            <label> Or add a new author: </label>
+            <input type="text" name="new_author">
+            <h3> Review: </h3>
+            <textarea name="review" placeholder="Review" maxlength="500" rows="30" cols="100"> </textarea>
+            <h3> Rating: </h3>
+            <select class="rating_select" name="rating_select">
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+            </select>
+            <label> stars. </label>
+            <input type="submit" value="Add Book and Review">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <title> Belt Review Assignment </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'book_reviews/css/style.css' %}">
+    </head>
+    <body>
+        <h2> User alias: {{ user.alias }} </h2>
+        <h2> Name: {{ user.name }} </h2>
+        <h2> Email: {{ user.email }} </h2>
+        <h2> Number of book reviews: {{ num_of_reviews }} </h2>
+        <h2> Posted Reviews on the following Books:</h2>
+        {% for review in their_reviews %}
+            <a href="{% url 'book_reviews:show' id=review.book_id.id %}"> {{ review.book_id.title }} </a>
+        {% endfor %}
+    </body>
+</html>

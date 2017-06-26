@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <title> Belt Review Assignment </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'book_reviews/css/style.css' %}">
+    </head>
+    <body>
+        <h1> Welcome {{ current_user.alias }}! </h1>
+        <a href="{% url 'book_reviews:add_review' %}"> Add Book and Review </a>
+        <p> </p>
+        <a id="logout" href="{% url 'login_app:logout' %}"> Logout </a>
+        <div id="recent_reviews"> 
+            <h3> Recent Book Reviews: </h3>
+            {% for review in recent %}
+                <div class="review">
+                    <h3> {{ review.book_id.title }} </h3>
+                    <a href="{% url 'book_reviews:show_user' id=review.user_id.id %}"> {{ review.user_id.alias }} </a> says: 
+                    <p> {{review.content}}</p>
+                    <p> Rating: {{ review.rating }} </p>
+                    <p> Posted on: {{ review.created_at }} </p>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="all_books"> 
+            <h3> Other Books with Reviews: </h3>
+            {% for book in all_books %}
+                <div class="book">
+                    <a class="title_link" href="{% url 'book_reviews:show' id=book.id %}"><h3><strong>{{book.title}}</strong></h3></a>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

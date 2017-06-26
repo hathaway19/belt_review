@@ -1,0 +1,15 @@
+body{
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    font-family: helvetica;
+}
+form{
+    vertical-align: top;
+    display: inline-block;
+    width: 200px;
+    margin: 50px;
+}
+form input{
+    margin-bottom: 20px;
+}
